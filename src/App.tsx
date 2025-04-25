@@ -4,14 +4,14 @@ import ReactCardFlip from "react-card-flip";
 import SlidCard from "./model/SlidCard";
 import CardForm from "./components/cardForm/CardForm";
 import { useWindowDimensions } from "./components/hooks/useWindowDimensions";
-import CardBack from "./components/CardBack";
-import CardFront from "./components/CardFront";
+import CardBack from "./components/card/CardBack";
+import CardFront from "./components/card/CardFront";
 
 export default function App() {
 
   const [isFlipped, setIsFlipped] = useState(false);
   const [card, setCard] = useState(new SlidCard());
-  const { vertical } = useWindowDimensions();
+  const { vertical, width } = useWindowDimensions();
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [imageSrc, setImageSrc] = useState<string | undefined>(undefined);
@@ -30,6 +30,10 @@ export default function App() {
     fileInputRef.current?.click();
   };
 
+  //Below 1100px we need to start scaling down
+  //Max at 0.75
+  //Min at 0.4 with a marginLeft of -300px, and a marginTop/Bottom of -170px
+
   return (
     <div style={vertical ? {} : { height: "100vh", display: "flex", alignItems: "center", flexDirection: "column", overflowY: 'auto' }}>
       <div style={{ width: '100%', minHeight:'768px', maxWidth: '1500px', padding: '20px', flex: '1', display: 'flex', flexDirection: 'column', overflowY: 'hidden' }}>
@@ -37,9 +41,13 @@ export default function App() {
         <hr style={{ width: '100%' }} />
         <div style={vertical ? {display:'flex', flexDirection:'column-reverse'} : { display: 'flex', flex: '1', overflowY: 'hidden' }}>
           <Card style={{ flex: '1', overflowY: 'hidden' }}>
-            <CardForm card={card} flipped={isFlipped} setCard={setCard} setFlipped={setIsFlipped} onUploadClick={onUploadClick} filename={fileName} />
+            <CardForm card={card} flipped={isFlipped} setCard={setCard} setFlipped={setIsFlipped} onUploadClick={onUploadClick} filename={fileName} profileSrc={imageSrc}/>
           </Card>
-          <div style={{ transform: 'scale(0.75)'}}>
+          <div style={
+            width < 1100 ? 
+            { transform: 'scale(0.4)', marginLeft:'-300px', marginTop:'-170px', marginBottom:'-170px', maxWidth:'1035px', margin:'0 auto'}
+            : { transform: 'scale(0.95)', maxWidth:'1035px', margin:'0 auto'}
+          }>
             <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
               <CardFront card={card} profileSrc={imageSrc}/>
               <CardBack card={card}/>
