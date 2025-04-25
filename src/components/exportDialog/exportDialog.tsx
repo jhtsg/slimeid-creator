@@ -1,4 +1,3 @@
-import { Dialog, DialogContent } from "@mui/material";
 import SlidCard from "../../model/SlidCard";
 import CardFront from "../card/CardFront";
 import CardBack from "../card/CardBack";
