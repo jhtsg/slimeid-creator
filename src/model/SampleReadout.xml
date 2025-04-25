@@ -1,0 +1,54 @@
+<!-- OK in order to not make this exactly like a fucking drivers license we'll package more or less the same information, but in JSON, not in XML -->
+<AAMVA>
+  <user>
+    <last e="DCS">Tampe Castillo</last>
+    <first e="DAC">Ignacio</first>
+    <middle e="DAD">Antonio</middle>
+    <dob e="DBB">1999-11-25</dob>
+    <eyes e="DAY">BRO</eyes>
+    <sex e="DBC">M</sex>
+    <height e="DAU">5'8"</height>
+    <street e="DAG">Urb Los Campos Montehiedra 778 Vall</street>
+    <city e="DAI">San Juan</city>
+    <state e="DAJ">PR</state>
+    <postal e="DAK">00926-7033</postal>
+    <country e="DCG">USA</country>
+    <id e="DAQ">7144036</id>
+    <issued e="DBD">2020-08-13</issued>
+    <expires e="DBA">2025-11-25</expires>
+  </user>
+  <head>
+    <filetype name="File Type">ANSI</filetype>
+    <format name="Data Format">15</format>
+    <issuer name="Issuer Identification Number">604431</issuer>
+    <version name="AAMVA Version Number">05</version>
+    <jurver name="Jurisdiction Version Number">00</jurver>
+    <entries name="Number of Entries">01</entries>
+  </head>
+  <subfile designator="DL">
+    <element id="DCA" name="Jurisdiction-specific vehicle class">3</element>
+    <element id="DCB" name="Jurisdiction-specific restriction codes">NONE</element>
+    <element id="DCD" name="Jurisdiction-specific endorsement codes">NONE</element>
+    <element id="DBA" name="Document Expiration Date">11252025</element>
+    <element id="DCS" name="Customer Family Name">TAMPE CASTILLO
+</element>
+    <element id="DAC" name="Driver First Name">IGNACIO</element>
+    <element id="DAD" name="Driver Middle Name or Initial">ANTONIO</element>
+    <element id="DBD" name="Document Issue Date">08132020</element>
+    <element id="DBB" name="Date of Birth">11251999</element>
+    <element id="DBC" name="Physical Description - Sex">1</element>
+    <element id="DAY" name="Physical Description - Eye Color">BRO</element>
+    <element id="DAU" name="Physical Description - Height">068 in</element>
+    <element id="DAG" name="Address - Street 1">URB LOS CAMPOS MONTEHIEDRA 778 VALL</element>
+    <element id="DAI" name="Address - City">SAN JUAN</element>
+    <element id="DAJ" name="Address - Jurisdiction Code">PR</element>
+    <element id="DAK" name="Address - Postal Code">009267033</element>
+    <element id="DAQ" name="Customer ID Number">7144036</element>
+    <element id="DCF" name="Document Discriminator">2</element>
+    <element id="DCG" name="Country Identification">USA</element>
+    <element id="DDE" name="Family name truncation">N</element>
+    <element id="DDF" name="First name truncation">N</element>
+    <element id="DDG" name="Middle name truncation">N</element>
+    <element id="DDA" name="Compliance Type">M</element>
+  </subfile>
+</AAMVA>
