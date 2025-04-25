@@ -2,7 +2,7 @@ import { Dialog, DialogContent } from "@mui/material";
 import SlidCard from "../../model/SlidCard";
 import CardFront from "../card/CardFront";
 import CardBack from "../card/CardBack";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useToPng } from '@hugocxl/react-to-image'
 import ReactDOM from "react-dom";
 
@@ -35,15 +35,23 @@ export default function ExportDialog(props: {
         }
       })
  
-      useEffect(()=>{
-        if(open){
-            new Promise(resolve=>setTimeout(resolve,1000)).then(()=>{
-                convertFront();
-                convertBack();
-                setOpen(false)    
-            })  
+      const hasRun = useRef(false)
+
+      useEffect(() => {
+        if (open && !hasRun.current) {
+          hasRun.current = true;
+      
+          const runCapture = async () => {
+            await new Promise(res => setTimeout(res, 500)); // allow time to render
+            await convertFront();
+            await convertBack();
+            setOpen(false);
+            hasRun.current = false; // reset so it can run next time
+          };
+      
+          runCapture();
         }
-      },[open])
+      }, [open]);
 
       return ReactDOM.createPortal(<div style={{ position: 'absolute', top: '-10000px', left: '-10000px' }}>
             <div ref={frontRef}><CardFront card={card} profileSrc={profileSrc} /></div>       
