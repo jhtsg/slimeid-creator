@@ -1,4 +1,4 @@
-import { Tab, Tabs } from "@mui/material";
+import { Button, Tab, Tabs } from "@mui/material";
 import SlidCard from "../../model/SlidCard";
 import CardFormBack from "./CardFormBack";
 import CardFormFront from "./CardFormFront";
@@ -8,14 +8,19 @@ export default function CardForm(props:{
     setCard: (card:SlidCard) => void;
     flipped: boolean;
     setFlipped: (flipped:boolean) => void;
+    onUploadClick : ()=> void;
+    filename?:string,
 }){
     const {flipped,setFlipped} = props;
     
     return <div style={{height:'100%', display:'flex', flexDirection:'column', overflowY:'hidden'}}>
-        <Tabs value={flipped ? 1 : 0} variant="scrollable" scrollButtons="auto" allowScrollButtonsMobile>
+        <div style={{display:'flex', alignItems:'center'}}>
+        <Tabs value={flipped ? 1 : 0} variant="scrollable" scrollButtons="auto" allowScrollButtonsMobile style={{flex:1}}>
             <Tab label="Front" onClick={() => setFlipped(false)} />
             <Tab label="Back" onClick={() => setFlipped(true)} />
         </Tabs>
+        <Button variant="contained" size="small" style={{marginRight:'10px'}}>Export</Button>
+        </div>
         <div style={{flex:'1', display:'flex', flexDirection:'column', padding:'10px', overflowY:'auto', gap:'15px'}}>
             {flipped ? <CardFormBack {...props}/> : <CardFormFront {...props}/>}
         </div>

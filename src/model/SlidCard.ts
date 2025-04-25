@@ -15,7 +15,7 @@ export default class SlidCard{
     public cardPattern:string = "";
 
     /**Show SI Logo on the front of the card*/
-    public showSiLogo:boolean = true;
+    public useMonochromeSiLogo:boolean = false;
     
     
     /**The color of the slime, which can be a single color or a combination of colors*/

@@ -1,0 +1,25 @@
+.sph {
+    width: 100ph;
+    aspect-ratio: 1;
+    border: 10px solid black;
+    border-radius: 50%;
+  }
+  .cub {
+    width: 100ph;
+    aspect-ratio: 1;
+    border: 10px solid black;
+  }
+  .cyl {
+    width: 100ph;
+    aspect-ratio: 1;
+    border: 10px solid black;
+    border-radius: 50% / 10%;
+  }
+  
+  .rmb {
+    aspect-ratio: 1;
+    border: 10px solid black;
+    transform: rotate(45deg) scale(0.8);
+  }
+  
+  

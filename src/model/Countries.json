@@ -1,4 +1,8 @@
 [
+    { "country":"Gay", "flag" : "🏳️‍🌈"},
+    { "country":"Trans", "flag":"🏳️‍⚧️"},
+    { "country":"Pirate","flag":"🏴‍☠️"},
+    { "country":"United Nations", "flag":"🇺🇳"},
     {
       "country": "Aruba",
       "flag": "🇦🇼"

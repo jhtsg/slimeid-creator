@@ -1,27 +1,36 @@
-import { Checkbox, FormControl, FormControlLabel, InputAdornment, InputLabel, MenuItem, Select, TextField, Tooltip } from "@mui/material";
+import { Button, Checkbox, FormControl, FormControlLabel, InputAdornment, InputLabel, MenuItem, Select, TextField, Tooltip } from "@mui/material";
 import SlidCard from "../../model/SlidCard";
 import Colorfield from "../shared/Colorfield";
 import { Colors } from "../../model/Colors";
 import { Cores } from "../../model/Cores";
 import { HelpOutline } from "@mui/icons-material";
 import CountrySelect from "../shared/CountrySelect";
+import { Paterns } from "../../model/Paterns";
 
 export default function CardFormFront(props: {
     card: SlidCard;
     setCard: (card: SlidCard) => void;
+    onUploadClick: ()=>void,
+    filename?:string,
 }) {
 
-    const { card, setCard } = props;
+    const { card, setCard, onUploadClick } = props;
 
     return <>
-
+        
         <TextField label="Name" value={card.name} onChange={(e) => setCard({ ...card, name: e.target.value })} />
+        
 
         <Tooltip title="This is your specimen ID which was given to you at the time the SI first documented your existence.">
             <TextField label="Speciment ID" value={card.specimenId} onChange={(e) => setCard({ ...card, specimenId: Number.parseInt(e.target.value) })} slotProps={{ input: { type: 'number' } }} />
         </Tooltip>
 
         <hr style={{ width: '100%' }} />
+        <div style={{textAlign:'center'}}>
+            
+            <Button variant="outlined" onClick={onUploadClick}>Upload a photo</Button>
+        </div>
+        <hr style={{width:'100%'}}/>
 
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
             <FormControl fullWidth>
@@ -77,8 +86,8 @@ export default function CardFormFront(props: {
         </div>
         {
             card.coreType && <div style={{ display: 'flex', gap: '10px' }}>
-                {card.coreType?.widthDimensionName.length > 0 && <TextField label={`Core ${card.coreType?.widthDimensionName}`} value={card.coreSize} onChange={(e) => setCard({ ...card, coreSize: Number.parseInt(e.target.value) })} slotProps={{ input: { type: 'number', endAdornment: <InputAdornment position="end">Cm</InputAdornment> } }}  style={{flex:"1", flexShrink:'0'}}/>}
-                {card.coreType?.hasHeight && <TextField label="Core Height" value={card.coreHeight} onChange={(e) => setCard({ ...card, coreHeight: Number.parseInt(e.target.value) })} slotProps={{ input: { type: 'number', endAdornment: <InputAdornment position="end">Cm</InputAdornment> } }} style={{flex:"1", flexShrink:'0'}} />}
+                {card.coreType?.widthDimensionName.length > 0 && <TextField label={`Core ${card.coreType?.widthDimensionName}`} value={card.coreSize} onChange={(e) => setCard({ ...card, coreSize: Number.parseFloat(e.target.value) })} slotProps={{ input: { type: 'number', endAdornment: <InputAdornment position="end">Cm</InputAdornment> } }}  style={{flex:"1", flexShrink:'0'}}/>}
+                {card.coreType?.hasHeight && <TextField label="Core Height" value={card.coreHeight} onChange={(e) => setCard({ ...card, coreHeight: Number.parseFloat(e.target.value) })} slotProps={{ input: { type: 'number', endAdornment: <InputAdornment position="end">Cm</InputAdornment> } }} style={{flex:"1", flexShrink:'0'}} />}
             </div>
         }
         <hr style={{ width: '100%' }} />
@@ -120,9 +129,26 @@ export default function CardFormFront(props: {
         {card.showExpireDate && <TextField label="Expiration Date" value={card.expireDate} onChange={(e) => setCard({ ...card, expireDate: e.target.value })} slotProps={{ input: { type: 'date' }, inputLabel: { shrink: true } }} />}
 
         <hr style={{ width: '100%' }} />
-        <FormControlLabel control={<Checkbox checked={card.showSiLogo} onChange={(e) => setCard({ ...card, showSiLogo: e.target.checked })} />} label="Show Slime Institute Logo" />
+        <FormControlLabel control={<Checkbox checked={card.useMonochromeSiLogo} onChange={(e) => setCard({ ...card, useMonochromeSiLogo: e.target.checked })} />} label="Use monochrome Slime Institute logo" />
+                
         <Colorfield label="Card Color" color={card.cardHeaderColor} setColor={(val) => setCard({ ...card, cardHeaderColor: val })} />
-        <TextField label="Card Patern" value={card.name} onChange={(e) => setCard({ ...card, cardPattern: e.target.value })} />
+        <FormControl fullWidth>
+                <InputLabel>Card Patern</InputLabel>
+                <Select
+                    value={card.coreType?.code}
+                    label="Card Patern"
+                    onChange={(e) => setCard({ ...card, cardPattern: e.target.value })}
+                >
+                    {Paterns.map((patern) => <MenuItem key={patern.code} value={patern.code}>
+                        <div style={{display:'flex', alignItems:'center', gap:'10px'}}>
+                            <div style={{backgroundColor:card.cardHeaderColor, backgroundImage:patern.backgroundImage, height:'32px', width:'64px'}}  ></div>
+                            <div>{patern.name}</div>
+                        </div>
+                        
+                    </MenuItem>)}
+                </Select>
+            </FormControl>
+
         <CountrySelect country={card.flag} setCountry={(val)=>setCard({...card,flag:val})} label="Nationality"/>
 
     </>
