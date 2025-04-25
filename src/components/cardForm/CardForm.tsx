@@ -28,7 +28,7 @@ export default function CardForm(props:{
         <div style={{flex:'1', display:'flex', flexDirection:'column', padding:'10px', overflowY:'auto', gap:'15px'}}>
             {flipped ? <CardFormBack {...props}/> : <CardFormFront {...props}/>}
         </div>
-        <ExportDialog card={props.card} open={open} setOpen={setOpen} profileSrc={props.profileSrc} />
+        {open && <ExportDialog card={props.card} open={open} setOpen={setOpen} profileSrc={props.profileSrc} />}
     </div>
 
 }

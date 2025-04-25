@@ -2,9 +2,9 @@ import { Dialog, DialogContent } from "@mui/material";
 import SlidCard from "../../model/SlidCard";
 import CardFront from "../card/CardFront";
 import CardBack from "../card/CardBack";
-import { createRef, RefObject, useEffect } from "react";
-// @ts-ignore
-import { useScreenshot, createFileName } from "use-react-screenshot";
+import { useEffect } from "react";
+import { useToPng } from '@hugocxl/react-to-image'
+import ReactDOM from "react-dom";
 
 export default function ExportDialog(props: {
     card: SlidCard
@@ -14,47 +14,40 @@ export default function ExportDialog(props: {
 }) {
 
     const { card, profileSrc, open, setOpen } = props
-    const frontRef: RefObject<HTMLDivElement> = createRef();
-    const backRef: RefObject<HTMLDivElement> = createRef();
 
-    const [_, takeScreenShot] = useScreenshot({
-        type: "image/png",
-        quality: 1.0
-      });
+    const [_, convertFront,frontRef] = useToPng<HTMLDivElement>({
+        quality: 0.8,
+        onSuccess: data => {
+          const link = document.createElement('a');
+          link.download = `SLID-${card.name.replace(' ','-')}-FRONT.png`;
+          link.href = data;
+          link.click();
+        }
+      })
 
-    const download = (fileName: string) => (image: any, { name = fileName, extension = "png" } = {}) => {
-        const a = document.createElement("a");
-        a.href = image;
-        a.download = createFileName(extension, name);
-        a.click();
-      };
-    
-      const downloadFrontShot = () => takeScreenShot(frontRef.current).then(download(`SLID-${card.name.replace(' ','-')}-FRONT`));
-      const downloadBackShot = () => takeScreenShot(backRef.current).then(download(`SLID-${card.name.replace(' ','-')}-BACK`));
-
+      const [__, convertBack,backRef] = useToPng<HTMLDivElement>({
+        quality: 0.8,
+        onSuccess: data => {
+          const link = document.createElement('a');
+          link.download = `SLID-${card.name.replace(' ','-')}-BACK.png`;
+          link.href = data;
+          link.click();
+        }
+      })
+ 
       useEffect(()=>{
         if(open){
             new Promise(resolve=>setTimeout(resolve,1000)).then(()=>{
-                downloadFrontShot();
-                downloadBackShot();
+                convertFront();
+                convertBack();
                 setOpen(false)    
-            })
-            
+            })  
         }
       },[open])
 
-    return <Dialog open={open} onClose={() => { setOpen(false) }} maxWidth="xl">
-        <DialogContent>Exporting...</DialogContent>
-        <DialogContent>
-            <div ref={frontRef}>
-                {open && <CardFront card={card} profileSrc={profileSrc} />}
-            </div>       
-            <div style={{height:'100px'}}></div>     
-            <div ref={backRef}>
-                {open && <CardBack card={card} />}
-            </div>
-        </DialogContent>
-    </Dialog>
-
+      return ReactDOM.createPortal(<div style={{ position: 'absolute', top: '-10000px', left: '-10000px' }}>
+            <div ref={frontRef}><CardFront card={card} profileSrc={profileSrc} /></div>       
+            <div ref={backRef}><CardBack card={card} /></div>
+      </div>, document.body)
 
 }
