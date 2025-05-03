@@ -5,15 +5,15 @@ import QRCode from "react-qr-code";
 import generateBarcode from "pdf417";
 import { useEffect, useState } from "react";
 
-export default function CardBack(props: { card: SlidCard, hidden?: boolean }) {
+export default function CardBack(props: { card: SlidCard, hidden?: boolean, isFlipped?: boolean }) {
 
-    const { card, hidden } = props;
+    const { card, hidden, isFlipped } = props;
 
     const [barcodeSrc, setBarcodeSrc] = useState('');
 
     useEffect(() => {
 
-        if (!barcodeSrc || barcodeSrc.length === 0) {
+        if (!barcodeSrc || barcodeSrc.length === 0 || isFlipped) {
             const barcode = generateBarcode(JSON.stringify(card), 4, 4);
             setBarcodeSrc(barcode);
             return;
