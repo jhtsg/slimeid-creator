@@ -3,26 +3,43 @@ import SlidCard from "../../model/SlidCard";
 import QRCode from "react-qr-code";
 // @ts-ignore
 import generateBarcode from "pdf417";
-import { RefObject } from "react";
+import { useEffect, useState } from "react";
 
-export default function CardBack(props: { card: SlidCard, ref?: RefObject<HTMLDivElement> }) {
+export default function CardBack(props: { card: SlidCard, hidden?: boolean }) {
 
-    const { card } = props;
+    const { card, hidden } = props;
 
+    const [barcodeSrc, setBarcodeSrc] = useState('');
+
+    useEffect(() => {
+
+        if (!barcodeSrc || barcodeSrc.length === 0) {
+            const barcode = generateBarcode(JSON.stringify(card), 4, 4);
+            setBarcodeSrc(barcode);
+            return;
+        }
+
+        const handler = setTimeout(() => {
+            const barcode = generateBarcode(JSON.stringify(card), 4, 4);
+            setBarcodeSrc(barcode);
+        }, 1000); // 1-second debounce
+
+        return () => clearTimeout(handler); // clear on card change
+    }, [card]);
 
     return <Card >
-        <div ref={props.ref} style={{ backgroundColor: 'white', borderRadius: '10px', width: '1035px', height: '660px', display: 'flex', flexDirection: 'column', fontFamily: 'Arial' }}>
-            <div style={{ height: '375px', flexShrink: '0' }}>
+        <div style={{ backgroundColor: 'white', borderRadius: '10px', width: '1035px', height: '660px', display: 'flex', flexDirection: 'column', fontFamily: 'Arial' }}>
+            {!hidden && <div style={{ height: '375px', flexShrink: '0' }}>
 
                 {card.showPdf417 ? <>
-                    <img src={generateBarcode(JSON.stringify(card), 4, 4)} style={{ width: '100%', height: '100%', padding: '30px' }} />
+                    <img src={barcodeSrc} style={{ width: '100%', height: '100%', padding: '30px' }} />
                 </> : <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%', gap: '50px' }}>
 
                     {card.showQrCode && <QRCode value={window.location.href} style={{ width: '256px' }} />}
                     {card.showCustomQRCode && <QRCode value={card.customQRCodeText} style={{ width: '256px' }} />}
                 </div>}
 
-            </div>
+            </div>}
             <div style={{ flex: 1, display: 'flex', color: '#222' }}>
                 <div style={{ flex: '1', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', padding: '10px 30px' }}>
                     <div>

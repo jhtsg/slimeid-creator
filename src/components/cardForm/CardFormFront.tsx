@@ -10,27 +10,27 @@ import { Paterns } from "../../model/Paterns";
 export default function CardFormFront(props: {
     card: SlidCard;
     setCard: (card: SlidCard) => void;
-    onUploadClick: ()=>void,
-    filename?:string,
+    onUploadClick: () => void,
+    filename?: string,
 }) {
 
     const { card, setCard, onUploadClick } = props;
 
     return <>
-        
+
         <TextField label="Name" value={card.name} onChange={(e) => setCard({ ...card, name: e.target.value })} />
-        
+
 
         <Tooltip title="This is your specimen ID which was given to you at the time the SI first documented your existence.">
             <TextField label="Speciment ID" value={card.specimenId} onChange={(e) => setCard({ ...card, specimenId: Number.parseInt(e.target.value) })} slotProps={{ input: { type: 'number' } }} />
         </Tooltip>
 
         <hr style={{ width: '100%' }} />
-        <div style={{textAlign:'center'}}>
-            
+        <div style={{ textAlign: 'center' }}>
+
             <Button variant="outlined" onClick={onUploadClick}>Upload a photo</Button>
         </div>
-        <hr style={{width:'100%'}}/>
+        <hr style={{ width: '100%' }} />
 
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
             <FormControl fullWidth>
@@ -86,25 +86,25 @@ export default function CardFormFront(props: {
         </div>
         {
             card.coreType && <div style={{ display: 'flex', gap: '10px' }}>
-                {card.coreType?.widthDimensionName.length > 0 && <TextField label={`Core ${card.coreType?.widthDimensionName}`} value={card.coreSize} onChange={(e) => setCard({ ...card, coreSize: Number.parseFloat(e.target.value) })} slotProps={{ input: { type: 'number', endAdornment: <InputAdornment position="end">Cm</InputAdornment> } }}  style={{flex:"1", flexShrink:'0'}}/>}
-                {card.coreType?.hasHeight && <TextField label="Core Height" value={card.coreHeight} onChange={(e) => setCard({ ...card, coreHeight: Number.parseFloat(e.target.value) })} slotProps={{ input: { type: 'number', endAdornment: <InputAdornment position="end">Cm</InputAdornment> } }} style={{flex:"1", flexShrink:'0'}} />}
+                {card.coreType?.widthDimensionName.length > 0 && <TextField label={`Core ${card.coreType?.widthDimensionName}`} value={card.coreSize} onChange={(e) => setCard({ ...card, coreSize: Number.parseFloat(e.target.value) })} slotProps={{ input: { type: 'number', endAdornment: <InputAdornment position="end">Cm</InputAdornment> } }} style={{ flex: "1", flexShrink: '0' }} />}
+                {card.coreType?.hasHeight && <TextField label="Core Height" value={card.coreHeight} onChange={(e) => setCard({ ...card, coreHeight: Number.parseFloat(e.target.value) })} slotProps={{ input: { type: 'number', endAdornment: <InputAdornment position="end">Cm</InputAdornment> } }} style={{ flex: "1", flexShrink: '0' }} />}
             </div>
         }
         <hr style={{ width: '100%' }} />
         <Tooltip title={<div>
             <div>This is where you came form. Usually this is from:</div>
-            <div style={{marginTop:'5px'}}>
+            <div style={{ marginTop: '5px' }}>
                 <table ><tbody>
                     <tr>
-                        <td style={{alignContent:'start'}}>SI Experiments: </td>
+                        <td style={{ alignContent: 'start' }}>SI Experiments: </td>
                         <td>Denoted by a series number and letter (100-D)</td>
                     </tr>
                     <tr>
-                        <td style={{alignContent:'start'}}>Mitosis: </td>
+                        <td style={{ alignContent: 'start' }}>Mitosis: </td>
                         <td>Denoted by name or speciment ID of the "Father" slime</td>
                     </tr>
                     <tr>
-                        <td style={{alignContent:'start'}}>Unknown: </td>
+                        <td style={{ alignContent: 'start' }}>Unknown: </td>
                         <td>If you don't know where you came from</td>
                     </tr>
                 </tbody></table>
@@ -129,27 +129,29 @@ export default function CardFormFront(props: {
         {card.showExpireDate && <TextField label="Expiration Date" value={card.expireDate} onChange={(e) => setCard({ ...card, expireDate: e.target.value })} slotProps={{ input: { type: 'date' }, inputLabel: { shrink: true } }} />}
 
         <hr style={{ width: '100%' }} />
-        <FormControlLabel control={<Checkbox checked={card.useMonochromeSiLogo} onChange={(e) => setCard({ ...card, useMonochromeSiLogo: e.target.checked })} />} label="Use monochrome Slime Institute logo" />
-                
-        <Colorfield label="Card Color" color={card.cardHeaderColor} setColor={(val) => setCard({ ...card, cardHeaderColor: val })} />
-        <FormControl fullWidth>
-                <InputLabel>Card Patern</InputLabel>
-                <Select
-                    value={card.coreType?.code}
-                    label="Card Patern"
-                    onChange={(e) => setCard({ ...card, cardPattern: e.target.value })}
-                >
-                    {Paterns.map((patern) => <MenuItem key={patern.code} value={patern.code}>
-                        <div style={{display:'flex', alignItems:'center', gap:'10px'}}>
-                            <div style={{backgroundColor:card.cardHeaderColor, backgroundImage:patern.backgroundImage, height:'32px', width:'64px'}}  ></div>
-                            <div>{patern.name}</div>
-                        </div>
-                        
-                    </MenuItem>)}
-                </Select>
-            </FormControl>
 
-        <CountrySelect country={card.flag} setCountry={(val)=>setCard({...card,flag:val})} label="Nationality"/>
+        <FormControlLabel control={<Checkbox checked={card.useMonochromeSiLogo} onChange={(e) => setCard({ ...card, useMonochromeSiLogo: e.target.checked })} />} label="Use monochrome Slime Institute logo" />
+
+        <Colorfield label="Header Color" color={card.cardHeaderColor} setColor={(val) => setCard({ ...card, cardHeaderColor: val })} />
+
+        <FormControl fullWidth>
+            <InputLabel>Header Pattern</InputLabel>
+            <Select
+                value={card.coreType?.code}
+                label="Card Patern"
+                onChange={(e) => setCard({ ...card, cardPattern: e.target.value })}
+            >
+                {Paterns.map((patern) => <MenuItem key={patern.code} value={patern.code}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <div style={{ backgroundColor: card.cardHeaderColor, backgroundImage: patern.backgroundImage, height: '32px', width: '64px' }}  ></div>
+                        <div>{patern.name}</div>
+                    </div>
+
+                </MenuItem>)}
+            </Select>
+        </FormControl>
+
+        <CountrySelect country={card.flag} setCountry={(val) => setCard({ ...card, flag: val })} label="Nationality" />
 
     </>
 }
