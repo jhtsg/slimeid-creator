@@ -1,6 +1,7 @@
-import { ClickAwayListener, IconButton, InputAdornment, Popper, TextField, Tooltip } from "@mui/material";
+import { Close } from "@mui/icons-material";
+import { Card, IconButton, InputAdornment, Popper, TextField, Tooltip } from "@mui/material";
 import { useState } from "react";
-import { SketchPicker } from 'react-color';
+import { ChromePicker } from 'react-color';
 
 export default function Colorfield(props: {
     color: string;
@@ -26,10 +27,13 @@ export default function Colorfield(props: {
                         </InputAdornment>
                 }
             }} />
+
         <Popper open={!!anchorEl} anchorEl={anchorEl} sx={{ zIndex: 1500 }}>
-            <ClickAwayListener onClickAway={() => { setAnchorEl(null) }}>
-                <SketchPicker color={color} onChange={(color) => { setColor(color.hex); }} />
-            </ClickAwayListener>
+            <Card style={{ backgroundColor: "#FFF", fontFamily: 'Arial' }}>
+                <IconButton size="small" onClick={() => { setAnchorEl(null) }}><Close color="secondary" /></IconButton>
+                <ChromePicker color={color} onChange={(color) => { setColor(color.hex); }} disableAlpha />
+
+            </Card>
         </Popper>
     </>
 
