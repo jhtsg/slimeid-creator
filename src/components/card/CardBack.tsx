@@ -55,9 +55,9 @@ export default function CardBack(props: { card: SlidCard, hidden?: boolean, isFl
                     {card.showPdf417 && card.showCustomQRCode && <QRCode value={card.customQRCodeText} style={{ width: '128px' }} />}
                 </div>
             </div>
-            <div style={{ color: "#555", marginBottom: '20px', padding: '0px 30px 20px 30px', fontSize: '.6em', flexShrink: '0' }}>
-                <div><b>Not a government-issued ID: </b>This is a fictional identification card. It is not meant to serve any real identification purpose of the person in its possession. </div>
-                <div>Emoji artwork (if present) © Twemoji by Twitter, licensed under MIT License.</div>
+            <div style={{ color: "#555", marginBottom: '20px', padding: '0px 30px 20px 30px', flexShrink: '0', marginTop: '-20px' }}>
+                <div><b>Not a government-issued ID: </b>This is a fictional identification card.</div>
+                <div style={{ fontSize: '.9em' }}>Emoji artwork (if present) © Twemoji by Twitter, licensed under MIT License.</div>
             </div>
         </div>
     </Card>
