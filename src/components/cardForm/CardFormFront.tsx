@@ -55,11 +55,11 @@ export default function CardFormFront(props: {
             <TextField label="Typical Height" value={card.typicalHeight} onChange={(e) => setCard({ ...card, typicalHeight: Number.parseFloat(e.target.value) })} slotProps={{ input: { type: 'number', endAdornment: <InputAdornment position="end">Cm</InputAdornment> } }} style={{ flex: '1', flexShrink: '0' }} />
         </div>
         <div style={{ display: 'flex', gap: '10px' }}>
-            <Tooltip title="While you are obviously a slime, you may present as a human, or another anthropomorphic form.">
-                <TextField label="Presenting Species" value={card.presentingSpecies} onChange={(e) => setCard({ ...card, presentingSpecies: e.target.value })} style={{ flex: '1', flexShrink: '0' }} />
-            </Tooltip>
             <Tooltip title="Slimes in the SI Universe are all male in sex, but may present as a different gender.">
                 <TextField label="Gender" value={card.presentingGender} onChange={(e) => setCard({ ...card, presentingGender: e.target.value })} style={{ flex: '1', flexShrink: '0' }} />
+            </Tooltip>
+            <Tooltip title="While you are obviously a slime, you may present as a human, or another anthropomorphic form.">
+                <TextField label="Presenting Species" value={card.presentingSpecies} onChange={(e) => setCard({ ...card, presentingSpecies: e.target.value })} style={{ flex: '1', flexShrink: '0' }} />
             </Tooltip>
         </div>
         <Tooltip title="This is a brief visual description of the form you usually take. IE: Overweight male with short hair">
