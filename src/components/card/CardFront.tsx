@@ -3,25 +3,14 @@ import SlidCard from "../../model/SlidCard";
 import { isColorBright } from "../../utils/isColorBright";
 import { Paterns } from "../../model/Paterns";
 import RenderCore from "../shared/RenderCore";
-import { useBarcode } from "next-barcode";
 import TwemojiText from "../shared/TwemojiText";
 import { RefObject } from "react";
-import { HelpOutlineOutlined } from "@mui/icons-material";
 
 export default function CardFront(props: { card: SlidCard, profileSrc?: string, ref?: RefObject<HTMLDivElement> }) {
 
     const { card, profileSrc } = props;
 
     const isBright = isColorBright(card.cardHeaderColor)
-
-    // const { inputRef } = useBarcode({
-    //     value: `SLIDV1|${card.specimenId}|${card.name}`,
-    //     options: {
-    //         displayValue: false, height: 256, width: 9,
-    //         background: 'rgba(0,0,0,0)',
-    //     }
-    // });
-
 
     const blueLabel = '#111177';
     const coreSizeCode = () => {
@@ -173,7 +162,6 @@ export default function CardFront(props: { card: SlidCard, profileSrc?: string, 
                             </div>
                             <div style={{ width: '200px', flexShrink: '0', fontSize: '5em', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '-20px' }}>
                                 {card.flag && card.flag.length > 0 && <TwemojiText text={card.flag} />}
-                                {/* <HelpOutlineOutlined /> */}
                             </div>
 
                         </div>
