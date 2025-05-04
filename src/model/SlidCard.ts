@@ -1,31 +1,30 @@
 import CoreType from "./CoreType";
 
-export default class SlidCard{
+export default class SlidCard {
 
     /**The unique identifier for the slime*/
-    public specimenId:Number = 0;
+    public specimenId: Number = 0;
 
     /**The name of the slime, which can be a common name or a scientific name*/
-    public name:string = "";
+    public name: string = "";
 
     /**Color of the card's header*/
-    public cardHeaderColor:string = "";
+    public cardHeaderColor: string = "";
 
     /**Card pattern*/
-    public cardPattern:string = "";
+    public cardPattern: string = "";
 
     /**Show SI Logo on the front of the card*/
-    public useMonochromeSiLogo:boolean = false;
-    
-    
+    public useMonochromeSiLogo: boolean = false;
+
     /**The color of the slime, which can be a single color or a combination of colors*/
-    public color:string = "";
+    public color: string = "";
 
     /**Volume of goo mass (excluding core) the slime is in control over */
-    public totalVolume:Number=0;
+    public totalVolume: Number = 0;
 
     //Type of a slime's core, which can be a sphere, cube, or other shapes
-    public coreType: CoreType|undefined = undefined ;
+    public coreType: CoreType | undefined = undefined;
 
     /** Diameter (or width) of a core in centimiters*/
     public coreSize: number = 0;
@@ -34,25 +33,25 @@ export default class SlidCard{
     public coreHeight: number = 0;
 
     /**Description of the core of the slime (eg "L-S" for Large Spherical)*/
-    public coreDescCode:string="";
+    public coreDescCode: string = "";
 
     /**The date the slime was created or discovered*/
-    public dateOfSpecimen:string="";
-    
+    public dateOfSpecimen: string = "";
+
     /**Origin of the slime, either from an experiment, an existing slime, or unknown*/
-    public origin:string="";
-    
+    public origin: string = "";
+
     /**Amount of nutritious fluid ingested daily in liters.
      * 
      * NOTE: For slimes that were never in containment, this should be undefined
     */
-    public dailyIntake:Number|undefined=undefined;
+    public dailyIntake: Number | undefined = undefined;
 
     /**Amount of waste produced daily in liters
      * 
      * NOTE: For slimes that were never in containment, this should be undefined
      */
-    public dailyOutput:Number|undefined=undefined;
+    public dailyOutput: Number | undefined = undefined;
 
     /**Typical Height of the slime in centimiters */
     public typicalHeight: number = 0;
@@ -76,9 +75,9 @@ export default class SlidCard{
 
     /**Boolean to show the barcode along the bottom of the card in the front*/
     public showBarcode: boolean = true;
-    
+
     /**Override for the barcode text in case the user wants to put something else */
-    public barcodeText : string = "" ;
+    public barcodeText: string = "";
 
     /**Boolean to show a QR Code to this generator*/
     public showQrCode: boolean = true;
@@ -92,9 +91,12 @@ export default class SlidCard{
     /**Indicator to show a PDF*/
     public showPdf417: boolean = true;
 
-    public restrictions:string[] = [];
-    public endorsements:string[] = [];
+    /** Card Variant to be shown on header */
+    public badge: string = "";
 
-    public flag:string = "";
-        
+    public restrictions: string[] = [];
+    public endorsements: string[] = [];
+
+    public flag: string = "";
+
 }
