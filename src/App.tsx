@@ -9,7 +9,7 @@ export default function App() {
 
   const [isFlipped, setIsFlipped] = useState(false);
   const [card, setCard] = useState(new SlidCard());
-  const { vertical, width } = useWindowDimensions();
+  const { vertical } = useWindowDimensions();
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [imageSrc, setImageSrc] = useState<string | undefined>(undefined);
