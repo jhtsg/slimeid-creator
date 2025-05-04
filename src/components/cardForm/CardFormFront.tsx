@@ -153,15 +153,6 @@ export default function CardFormFront(props: {
             <TextField label="Origin" value={card.origin} onChange={(e) => setCard({ ...card, origin: e.target.value })} />
         </Tooltip>
 
-        <div style={{ display: 'flex', gap: '10px' }}>
-            <Tooltip title="This is the amount of nutrition fluid you intake daily. This is a legacy field from SI experimentation and is no longer required">
-                <TextField label="Daily Intake" value={card.dailyIntake} onChange={(e) => setCard({ ...card, dailyIntake: e.target.value.length === 0 ? undefined : Number.parseFloat(e.target.value) })} slotProps={{ input: { type: 'number', endAdornment: <InputAdornment position="end">L</InputAdornment> } }} fullWidth />
-            </Tooltip>
-            <Tooltip title="This is the amount of fluid you eject daily. This is a legacy field from SI experimentation and is no longer required">
-                <TextField label="Daily Output" value={card.dailyOutput} onChange={(e) => setCard({ ...card, dailyOutput: e.target.value.length === 0 ? undefined : Number.parseFloat(e.target.value) })} slotProps={{ input: { type: 'number', endAdornment: <InputAdornment position="end">L</InputAdornment> } }} fullWidth />
-            </Tooltip>
-        </div>
-
         <div style={{ marginTop: '10px' }}>
             <b>Card Settings</b>
             <hr style={{ width: '100%' }} />
@@ -175,7 +166,7 @@ export default function CardFormFront(props: {
             <InputLabel>Header Pattern</InputLabel>
             <Select
                 value={card.coreType?.code}
-                label="Card Patern"
+                label="Header Pattern"
                 onChange={(e) => setCard({ ...card, cardPattern: e.target.value })}
             >
                 {Paterns.map((patern) => <MenuItem key={patern.code} value={patern.code}>
