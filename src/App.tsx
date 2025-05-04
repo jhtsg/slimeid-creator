@@ -9,7 +9,7 @@ export default function App() {
 
   const [isFlipped, setIsFlipped] = useState(false);
   const [card, setCard] = useState(new SlidCard());
-  const { vertical } = useWindowDimensions();
+  const { vertical, width } = useWindowDimensions();
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [imageSrc, setImageSrc] = useState<string | undefined>(undefined);
@@ -37,11 +37,14 @@ export default function App() {
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontFamily: 'Orbitron' }}>
             <div style={{ fontSize: '2.75em', fontWeight: '500' }}>SLID</div>
-            <hr style={{ height: '48px' }} />
-            <div style={{ fontSize: '.9em' }}>
-              <div>Slime Institute</div>
-              <div>Specimen Identification Card Creation System</div>
-            </div>
+
+            {width > 640 && <>
+              <hr style={{ height: '48px' }} />
+              <div style={{ fontSize: '.9em' }}>
+                <div>Slime Institute</div>
+                <div>Specimen Identification Card Creation System</div>
+              </div>
+            </>}
           </div>
 
         </div>
