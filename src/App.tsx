@@ -31,7 +31,20 @@ export default function App() {
   return (
     <div style={vertical ? {} : { height: "100vh", display: "flex", alignItems: "center", flexDirection: "column", overflowY: 'auto' }}>
       <div style={{ width: '100%', minHeight: '768px', maxWidth: '1500px', padding: '20px', flex: '1', display: 'flex', flexDirection: 'column', overflowY: 'hidden' }}>
-        <h1 style={{ marginBottom: '0px', fontSize: "1.5em" }}>The Slime ID (SLID) Creator</h1>
+        <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+          <div>
+            <img src={"/sitight.png"} style={{ height: '48px' }} />
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontFamily: 'Orbitron' }}>
+            <div style={{ fontSize: '2.75em', fontWeight: '500' }}>SLID</div>
+            <hr style={{ height: '48px' }} />
+            <div style={{ fontSize: '.9em' }}>
+              <div>Slime Institute</div>
+              <div>Specimen Identification Card Creation System</div>
+            </div>
+          </div>
+
+        </div>
         <hr style={{ width: '100%' }} />
         <div style={{ display: 'flex', flexDirection: vertical ? 'column-reverse' : undefined, flex: vertical ? undefined : 1, overflowY: vertical ? undefined : 'hidden' }}>
           <Card style={{ overflowY: 'hidden', flexShrink: 0, width: vertical ? undefined : '400px' }}>
