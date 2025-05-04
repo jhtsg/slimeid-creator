@@ -18,6 +18,10 @@ export default function CardFormFront(props: {
 
     return <>
 
+        <div>
+            <b>Identification Information</b>
+            <hr style={{ width: '100%' }} />
+        </div>
         <TextField label="Name" value={card.name} onChange={(e) => setCard({ ...card, name: e.target.value })} />
 
 
@@ -25,12 +29,19 @@ export default function CardFormFront(props: {
             <TextField label="Speciment ID" value={card.specimenId} onChange={(e) => setCard({ ...card, specimenId: Number.parseInt(e.target.value) })} slotProps={{ input: { type: 'number' } }} />
         </Tooltip>
 
-        <hr style={{ width: '100%' }} />
-        <div style={{ textAlign: 'center' }}>
+        <div style={{ marginTop: '10px' }}>
+            <b>Profile Photo</b>
+            <hr style={{ width: '100%' }} />
+        </div>
 
+        <div style={{ textAlign: 'center' }}>
             <Button variant="outlined" onClick={onUploadClick}>Upload a photo</Button>
         </div>
-        <hr style={{ width: '100%' }} />
+
+        <div style={{ marginTop: '10px' }}>
+            <b>Visual Information</b>
+            <hr style={{ width: '100%' }} />
+        </div>
 
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
             <FormControl fullWidth>
@@ -66,8 +77,10 @@ export default function CardFormFront(props: {
             <TextField label="Visual Description" value={card.visualDescription} onChange={(e) => setCard({ ...card, visualDescription: e.target.value })} multiline minRows={3} />
         </Tooltip>
 
-        <hr style={{ width: '100%' }} />
-
+        <div style={{ marginTop: '10px' }}>
+            <b>Core Information</b>
+            <hr style={{ width: '100%' }} />
+        </div>
 
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
             <FormControl fullWidth>
@@ -90,7 +103,34 @@ export default function CardFormFront(props: {
                 {card.coreType?.hasHeight && <TextField label="Core Height" value={card.coreHeight} onChange={(e) => setCard({ ...card, coreHeight: Number.parseFloat(e.target.value) })} slotProps={{ input: { type: 'number', endAdornment: <InputAdornment position="end">Cm</InputAdornment> } }} style={{ flex: "1", flexShrink: '0' }} />}
             </div>
         }
-        <hr style={{ width: '100%' }} />
+
+        <div style={{ marginTop: '10px' }}>
+            <b>Slime Institute Information</b>
+            <hr style={{ width: '100%' }} />
+        </div>
+
+        <TextField label="Issue Date" value={card.issueDate} onChange={(e) => setCard({ ...card, issueDate: e.target.value })} slotProps={{ htmlInput: { type: 'date', placeholder: '' }, inputLabel: { shrink: true } }} />
+
+        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+
+            <TextField label="Expiration Date" value={card.expireDate} onChange={(e) => setCard({ ...card, expireDate: e.target.value })} slotProps={{
+                input: {
+                    type: 'date',
+                    startAdornment: <InputAdornment position="start">
+                        <Tooltip title='Some SLIDs may not expire. Check this box if this one does'>
+                            <Checkbox checked={card.showExpireDate} onChange={(e) => setCard({ ...card, showExpireDate: e.target.checked })} />
+                        </Tooltip>
+                    </InputAdornment>
+
+                }, inputLabel: { shrink: true },
+            }} fullWidth disabled={!card.showExpireDate} />
+        </div>
+
+        <Tooltip title={`This is your date of "birth". If you do not know the exact date you were born, specify the first date the SI made contact with you`}>
+            <TextField label="Date of Specimen" value={card.dateOfSpecimen} onChange={(e) => setCard({ ...card, dateOfSpecimen: e.target.value })} slotProps={{ htmlInput: { type: 'date', placeholder: '' }, inputLabel: { shrink: true } }} />
+        </Tooltip>
+
+
         <Tooltip title={<div>
             <div>This is where you came form. Usually this is from:</div>
             <div style={{ marginTop: '5px' }}>
@@ -112,6 +152,7 @@ export default function CardFormFront(props: {
         </div>}>
             <TextField label="Origin" value={card.origin} onChange={(e) => setCard({ ...card, origin: e.target.value })} />
         </Tooltip>
+
         <div style={{ display: 'flex', gap: '10px' }}>
             <Tooltip title="This is the amount of nutrition fluid you intake daily. This is a legacy field from SI experimentation and is no longer required">
                 <TextField label="Daily Intake" value={card.dailyIntake} onChange={(e) => setCard({ ...card, dailyIntake: e.target.value.length === 0 ? undefined : Number.parseFloat(e.target.value) })} slotProps={{ input: { type: 'number', endAdornment: <InputAdornment position="end">L</InputAdornment> } }} fullWidth />
@@ -120,15 +161,11 @@ export default function CardFormFront(props: {
                 <TextField label="Daily Output" value={card.dailyOutput} onChange={(e) => setCard({ ...card, dailyOutput: e.target.value.length === 0 ? undefined : Number.parseFloat(e.target.value) })} slotProps={{ input: { type: 'number', endAdornment: <InputAdornment position="end">L</InputAdornment> } }} fullWidth />
             </Tooltip>
         </div>
-        <hr style={{ width: '100%' }} />
-        <Tooltip title={`This is your date of "birth". If you do not know the exact date you were born, specify the first date the SI made contact with you`}>
-            <TextField label="Date of Specimen" value={card.dateOfSpecimen} onChange={(e) => setCard({ ...card, dateOfSpecimen: e.target.value })} slotProps={{ htmlInput: { type: 'date', placeholder: '' }, inputLabel: { shrink: true } }} />
-        </Tooltip>
-        <TextField label="Issue Date" value={card.issueDate} onChange={(e) => setCard({ ...card, issueDate: e.target.value })} slotProps={{ htmlInput: { type: 'date', placeholder: '' }, inputLabel: { shrink: true } }} />
-        <FormControlLabel control={<Checkbox checked={card.showExpireDate} onChange={(e) => setCard({ ...card, showExpireDate: e.target.checked })} />} label="Show Expiration Date" />
-        {card.showExpireDate && <TextField label="Expiration Date" value={card.expireDate} onChange={(e) => setCard({ ...card, expireDate: e.target.value })} slotProps={{ input: { type: 'date' }, inputLabel: { shrink: true } }} />}
 
-        <hr style={{ width: '100%' }} />
+        <div style={{ marginTop: '10px' }}>
+            <b>Card Settings</b>
+            <hr style={{ width: '100%' }} />
+        </div>
 
         <FormControlLabel control={<Checkbox checked={card.useMonochromeSiLogo} onChange={(e) => setCard({ ...card, useMonochromeSiLogo: e.target.checked })} />} label="Use monochrome Slime Institute logo" />
 
