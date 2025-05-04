@@ -1,4 +1,5 @@
 import CoreType from "./CoreType";
+import { Paterns } from "./Paterns";
 
 export default class SlidCard {
 
@@ -98,5 +99,9 @@ export default class SlidCard {
     public endorsements: string[] = [];
 
     public flag: string = "";
+
+    constructor() {
+        this.cardPattern = Paterns[Math.floor(Math.random() * (Paterns.length - 1) + 1)].code
+    }
 
 }
