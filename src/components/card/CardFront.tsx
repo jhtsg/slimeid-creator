@@ -35,7 +35,7 @@ export default function CardFront(props: { card: SlidCard, profileSrc?: string, 
                 backgroundColor: card.cardHeaderColor,
                 color: isBright ? 'black' : 'white',
                 backgroundImage: Paterns.find(a => a.code === card.cardPattern)?.backgroundImage,
-                display: 'flex', alignItems: 'center', gap: '20px', paddingLeft: '40px'
+                display: 'flex', alignItems: 'center', gap: '20px', paddingLeft: '40px', paddingRight: '40px'
             }}>
                 <div>
                     <img src={card.useMonochromeSiLogo ? `/sitrans${isBright ? "dark" : "white"}.png` : "/sitight.png"} style={{ height: '80px' }} />
@@ -47,6 +47,9 @@ export default function CardFront(props: { card: SlidCard, profileSrc?: string, 
                         <div>Slime Institute</div>
                         <div>Specimen Identification Card</div>
                     </div>
+                </div>
+                <div style={{ flex: "1", display: "flex", justifyContent: 'flex-end', fontFamily: 'Orbitron', fontSize: '2em' }}>
+                    {card.badge.length > 0 && <div style={{ borderRadius: '3px', borderColor: isBright ? 'black' : 'white', borderStyle: 'solid', borderWidth: '4px', width: "48px", height: '48px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>{card.badge}</div>}
                 </div>
             </div>
             <div style={{ flex: 1, display: 'flex', flexShrink: '0', flexDirection: 'column' }}>

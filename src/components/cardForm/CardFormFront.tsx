@@ -188,6 +188,28 @@ export default function CardFormFront(props: {
             </Select>
         </FormControl>
 
+        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+            <FormControl fullWidth>
+                <InputLabel>Card Badge</InputLabel>
+                <Select
+                    value={card.badge}
+                    label="Card Variant"
+                    onChange={(e) => setCard({ ...card, badge: e.target.value })}
+                >
+                    {[
+                        { variant: '', label: 'None' },
+                        { variant: 'A', label: 'Site A' },
+                        { variant: 'B', label: 'Site B' },
+                        { variant: 'L', label: 'Lost Core' },
+                        { variant: 'U', label: 'University Study Program' },
+                    ].map((core) => <MenuItem key={core.variant} value={core.variant}>{core.variant.length > 0 ? `${core.variant}: ` : ''}{core.label}</MenuItem>)}
+                </Select>
+            </FormControl>
+            <Tooltip title="Variants brand this SLID with important information members of the SI should know when interacting with this slime. The mark is on the top right of the card">
+                <HelpOutline />
+            </Tooltip>
+        </div>
+
         <CountrySelect country={card.flag} setCountry={(val) => setCard({ ...card, flag: val })} label="Nationality" />
 
     </>
